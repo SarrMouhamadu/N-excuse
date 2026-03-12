@@ -7,6 +7,26 @@ const PROMO_CODES = {
   'WELCOME15': 15,
 };
 
+/* ── DARK / LIGHT MODE ── */
+function initTheme() {
+  const saved = localStorage.getItem('ne-theme') || 'light';
+  applyTheme(saved);
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('themeBtn');
+  if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('ne-theme', theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+initTheme();
+
 let scrollObserver;
 function initScrollObserver() {
   if (scrollObserver) return;
