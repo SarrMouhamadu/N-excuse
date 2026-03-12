@@ -1,88 +1,78 @@
 # NO-EXCUSE ✦ Streetwear E-Commerce
 
-**NO EXCUSE** est une application web e-commerce ultra-légère et performante conçue pour une marque de vêtements streetwear.
+**NO EXCUSE** est une application web e-commerce légère et performante conçue pour une marque de vêtements streetwear.
 
-Le projet a été pensé pour offrir une expérience utilisateur haut de gamme et fluide, sans dépendre de lourds frameworks frontend ni de systèmes de paiements complexes. L'approche choisie privilégie le contact humain avec un tunnel de conversion redirigeant le client directement sur WhatsApp.
+Le projet a été pensé pour offrir une expérience utilisateur haut de gamme, sans dépendre de frameworks lourds ni de systèmes de paiement complexes. Le tunnel de conversion redirige directement le client vers WhatsApp pour une prise de commande humaine et immédiate.
 
 ---
 
-## 🚀 Fonctionnalités Principales
+## 🚀 Fonctionnalités
 
-- **Boutique Dynamique** : Les produits sont générés et filtrés instantanément via JavaScript.
-- **Paiement Direct (WhatsApp)** : Le panier compile les articles, les quantités, les informations du client ainsi que son mode de paiement préféré (Wave, Orange Money, Cash) et génère un bon de commande pré-rempli envoyé directement au vendeur via WhatsApp.
-- **Animations Modernes** : 
-  - Effets d'apparition fluides au défilement (Scroll Reveal).
-  - Bandeau textuel défilant infini (`NO EXCUSE ✦ JUST RESULT`).
-  - Carrousel d'images automatisé tournant en boucle à base de CSS pur.
-  - Animations de survol "Premium" avec ombres douces et soulèvements.
-- **Système de codes promotionnels** : Permet au client de soumettre des codes promo (ex: `NOEXCUSE10`) pour obtenir une réduction instantanée sur le total global.
+- **Boutique dynamique** : Produits générés et filtrés instantanément par catégorie.
+- **Tunnel de commande WhatsApp** : Récapitulatif complet envoyé directement au vendeur via WhatsApp (nom, adresse, articles, paiement).
+- **Codes promotionnels** : Réduction instantanée appliquée sur le total (ex: `NOEXCUSE10`, `WELCOME15`).
+- **Animations modernes** :
+  - Apparition fluide au défilement *(Scroll Reveal)*
+  - Bandeau textuel infini *(NO EXCUSE ✦ JUST RESULT)*
+  - Carrousel d'images automatisé en boucle
+  - Effets de survol *(hover)* avec ombres douces
 
 ---
 
 ## 🛠 Architecture & Technologies
 
-Ce projet est un "Static Site" (Site Statique) de type MVP (Minimum Viable Product).
+Site statique — aucune dépendance externe (pas de Node.js, pas de framework).
 
-- **HTML5** : Structure sémantique propre.
-- **CSS3 (Vanilla)** : Un design totalement personnalisé sans l'utilisation de Bootstrap ou Tailwind, incluant des variables root, Grid et Flexbox pour la responsivité.
+- **HTML5** — Structure sémantique
+- **CSS3 (Vanilla)** — Variables CSS, Grid, Flexbox, animations `@keyframes`
 - **JavaScript (Vanilla)** :
-  - `data.js` : Joue le rôle de base de données (JSON-like) contenant le catalogue de produits, les tailles, prix, et chemins des images en haute résolution.
-  - `app.js` : Gère le moteur logique du site (Observer API pour l'animation au scroll, la gestion complète du panier, la génération du ticket virtuel côté navigateur).
+  - `data.js` : Catalogue produits (base de données JSON statique)
+  - `app.js` : Logique complète (panier, galerie, promo, Intersection Observer)
 
 ---
 
-## 📦 Installation & Déploiement
+## 📦 Installation
 
-Aucune installation complexe (Node.js/npm) n'est requise puisque le projet est 100% statique.
+### Option 1 — Ouvrir directement
+```bash
+git clone https://github.com/SarrMouhamadu/N-excuse.git
+cd N-excuse
+open index.html
+```
 
-### Via Docker (Recommandé)
-Le projet inclut maintenant une configuration Docker complète basée sur Nginx Alpine pour des performances ultra-rapides en production.
+### Option 2 — Docker (recommandé)
+```bash
+# Construire l'image
+docker build -t no-excuse:latest .
 
-1. Clonez ce dépôt localement :
-   ```bash
-   git clone https://github.com/SarrMouhamadu/N-excuse.git
-   cd N-excuse
-   ```
-
-2. Lancez le projet avec Docker Compose :
-   ```bash
-   docker-compose up -d
-   ```
-   *L'application sera accessible sur `http://localhost:8080`.*
-
-### Lancement basique
-Vous pouvez également utiliser un petit serveur de développement Python ou PHP pour tester l'application si vous n'avez pas Docker :
-   ```bash
-   # Via Python
-   python3 -m http.server 8000
-   
-   # Via PHP
-   php -S localhost:8000
-   ```
+# Lancer le conteneur
+docker run -d -p 8081:80 --name no-excuse no-excuse:latest
+```
+Puis ouvrez **http://localhost:8081** dans votre navigateur.
 
 ---
 
-## 🎨 Modification des données
+## 🎨 Modifier le catalogue
 
-Pour mettre à jour les produits, ouvrez simplement le fichier `data.js` et modifiez l'objet `PRODUCTS` :
+Ouvrez `data.js` et ajoutez ou modifiez un produit dans le tableau `PRODUCTS` :
 
 ```javascript
 {
-  id: 1, 
-  name: 'T-shirt Noir', 
-  cat: 'tshirt', 
-  price: 8000, 
+  id: 1,
+  name: 'T-shirt Noir',
+  cat: 'tshirt',       // tshirt | hoodie | bonnet | accessoire
+  price: 8000,         // Prix en CFA
   soldOut: false,
   sizes: ['S','M','L','XL','XXL'],
-  img: 'tshirt-noir.png', // L'image doit se trouver à la racine
+  img: 'tshirt-noir.png',
   gallery: ['tshirt-noir.png', 'tshirt-noir-dos.jpeg']
 }
 ```
 
 ---
 
-## 📞 Contact Vendeur
+## 📞 Contact
 - **WhatsApp :** +221 77 398 52 55 / +221 77 590 64 83
-- **Emplacement :** Dakar
+- **Localisation :** Dakar, Sénégal
 
 *© 2026 No Excuse. Tous droits réservés.*
