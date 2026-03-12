@@ -269,17 +269,119 @@ footer { background:#000; color:#fff; padding:28px 20px 16px; }
 .promo-btn { background:#000; color:#fff; border:none; padding:11px 18px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; }
 .promo-applied { font-size:12px; color:#2a9d2a; font-weight:600; letter-spacing:1px; margin-bottom:8px; }
 
-/* RESPONSIVE MOBILE */
-@media (max-width: 768px) {
-  .sheet-gallery {
-    aspect-ratio: 1/0.55 !important;
-  }
-  .prod-img {
-    aspect-ratio: 3/4 !important;
-  }
-  .prod-name { font-size:11px !important; }
-  .prod-price { font-size:12px !important; }
-  .prod-info { padding:6px 8px 10px !important; }
+/* =====================================================
+   RESPONSIVE — Mobile first
+   ===================================================== */
+
+/* ---------- PETIT MOBILE (< 480px) ---------- */
+@media (max-width: 479px) {
+
+  /* Header */
+  .logo { font-size:20px; letter-spacing:1px; }
+  .announce-bar { font-size:9px; letter-spacing:3px; padding:9px 8px; }
+
+  /* Hero */
+  .hero { margin-top:94px; min-height:320px; }
+  .hero-btn { padding:11px 24px; font-size:10px; letter-spacing:2px; }
+
+  /* Grille produits : 2 colonnes sur petit mobile */
+  .prod-grid { grid-template-columns: repeat(2,1fr); gap:1px; padding:0 1px; }
+  .prod-name { font-size:9px; letter-spacing:0.5px; }
+  .prod-price { font-size:10px; }
+  .prod-info { padding:4px 5px 7px; }
+
+  /* Image ticker */
+  .img-ticker-inner img { height:60px; width:60px; margin:0 14px; }
+
+  /* Cart panel plein écran mobile */
+  .cart-panel { max-width:100%; }
+
+  /* Checkout plein écran */
+  .checkout-page { padding-top:10px; }
+  .order-summary { margin:10px; padding:10px; }
+  .checkout-form { margin:10px; }
+
+  /* Product sheet */
+  .sheet-gallery { aspect-ratio:1/0.5 !important; }
+  .sizes-grid { gap:6px; }
+  .size-btn { padding:7px 12px; font-size:11px; }
+  .btn-add { padding:14px; font-size:11px; }
+
+  /* Newsletter */
+  .newsletter { padding:28px 14px; }
+  .newsletter-form { flex-direction:column; gap:6px; }
+  .newsletter-input { width:100%; }
+  .newsletter-btn { width:100%; padding:12px; }
+
+  /* Footer */
+  footer { padding:22px 14px 12px; }
+  .ft-contact-btn span:last-child { font-size:11px; }
+}
+
+/* ---------- MOBILE (480px – 767px) ---------- */
+@media (min-width: 480px) and (max-width: 767px) {
+  .prod-grid { grid-template-columns: repeat(2,1fr); gap:2px; }
+  .prod-name { font-size:10px; }
+  .prod-price { font-size:11px; }
+  .prod-info { padding:5px 7px 9px; }
+  .cart-panel { max-width:100%; }
+  .img-ticker-inner img { height:70px; width:70px; }
+}
+
+/* ---------- TABLETTE (768px – 1023px) ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  /* Header */
+  header { padding:0 24px; }
+
+  /* Grille : 3 colonnes */
+  .prod-grid { grid-template-columns: repeat(3,1fr); gap:3px; }
+  .prod-name { font-size:11px; }
+  .prod-price { font-size:12px; }
+  .prod-info { padding:6px 8px 10px; }
+
+  /* Hero */
+  .hero-photo { object-fit:cover; }
+
+  /* Product sheet */
+  .sheet-gallery { aspect-ratio:1/0.55; }
+
+  /* Cart panel */
+  .cart-panel { max-width:400px; }
+
+  /* Footer en 2 colonnes */
+  footer { display:grid; grid-template-columns:1fr 1fr; gap:16px 24px; padding:28px 24px 16px; }
+  .ft-copy { grid-column:1/-1; }
+}
+
+/* ---------- DESKTOP (>= 1024px) ---------- */
+@media (min-width: 1024px) {
+
+  /* Header plus large */
+  header { padding:0 40px; }
+  .logo { font-size:28px; }
+
+  /* Grille 4 colonnes sur grand écran */
+  .prod-grid { grid-template-columns: repeat(4,1fr); gap:3px; }
+
+  /* Hero occupe bien toute la hauteur */
+  .hero { min-height:600px; }
+  .hero-photo { object-fit:cover; }
+
+  /* Image ticker images plus grandes */
+  .img-ticker-inner img { height:100px; width:100px; margin:0 32px; }
+
+  /* Footer en ligne */
+  footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; padding:36px 40px 20px; }
+
+  /* Shop section centré */
+  .shop-section { max-width:1400px; margin:0 auto; }
+  .shop-title { padding:0 24px 18px; }
+  .filters { padding:0 24px 18px; }
+  .prod-grid { padding:0 24px; }
+
+  /* Checkout formulaire plus large */
+  .checkout-page { max-width:700px; margin:0 auto; border-left:1px solid #f0f0f0; border-right:1px solid #f0f0f0; min-height:100vh; }
 }
 
 /* HERO ANIMATION — effet découpé qui se reforme */
