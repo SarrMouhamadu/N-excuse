@@ -35,12 +35,23 @@ Ce projet est un "Static Site" (Site Statique) de type MVP (Minimum Viable Produ
 
 Aucune installation complexe (Node.js/npm) n'est requise puisque le projet est 100% statique.
 
+### Via Docker (Recommandé)
+Le projet inclut maintenant une configuration Docker complète basée sur Nginx Alpine pour des performances ultra-rapides en production.
+
 1. Clonez ce dépôt localement :
    ```bash
    git clone https://github.com/SarrMouhamadu/N-excuse.git
+   cd N-excuse
    ```
 
-2. Vous pouvez ouvrir simplement le fichier `index.html` dans n'importe quel navigateur, ou utiliser un petit serveur de développement pour tester l'application :
+2. Lancez le projet avec Docker Compose :
+   ```bash
+   docker-compose up -d
+   ```
+   *L'application sera accessible sur `http://localhost:8080`.*
+
+### Lancement basique
+Vous pouvez également utiliser un petit serveur de développement Python ou PHP pour tester l'application si vous n'avez pas Docker :
    ```bash
    # Via Python
    python3 -m http.server 8000
