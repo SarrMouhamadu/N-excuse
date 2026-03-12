@@ -104,5 +104,5 @@ const PRODUCTS = [
 ];
 
 function getImg(filename) {
-  return 'images/' + filename;
+  return filename;
 }

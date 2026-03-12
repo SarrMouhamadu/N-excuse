@@ -7,6 +7,35 @@ const PROMO_CODES = {
   'WELCOME15': 15,
 };
 
+let scrollObserver;
+function initScrollObserver() {
+  if (scrollObserver) return;
+  scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-active');
+        scrollObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  document.querySelectorAll('.shop-title, .filters, .newsletter, .ft-section').forEach(el => {
+    el.classList.add('reveal-hidden');
+    scrollObserver.observe(el);
+  });
+}
+
+function initImgTicker() {
+  const ticker = document.getElementById('imgTickerInner');
+  if (!ticker) return;
+  // Prendre toutes les images des produits
+  const imgs = PRODUCTS.map(p => `<img src="${p.img}" alt="${p.name}">`).join('');
+  // Dupliquer plusieurs fois pour assurer un défilement continu sans coupure
+  ticker.innerHTML = imgs + imgs + imgs + imgs;
+}
+
+initScrollObserver();
+initImgTicker();
 render(null);
 
 function render(filter) {
@@ -15,10 +44,10 @@ function render(filter) {
     b.classList.toggle('active', cats[i] === filter);
   });
   const list = filter ? PRODUCTS.filter(p => p.cat === filter) : PRODUCTS;
-  document.getElementById('prodGrid').innerHTML = list.map(p => `
-    <div class="prod-card${p.soldOut ? ' soldout' : ''}" ${!p.soldOut ? `onclick="openProduct(${p.id})"` : ''}>
+  document.getElementById('prodGrid').innerHTML = list.map((p, idx) => `
+    <div class="prod-card reveal-hidden${p.soldOut ? ' soldout' : ''}" style="transition-delay: ${idx * 40}ms" ${!p.soldOut ? `onclick="openProduct(${p.id})"` : ''}>
       <div class="prod-img">
-        <img src="images/${p.img}" alt="${p.name}">
+        <img src="${p.img}" alt="${p.name}">
         ${p.gallery && p.gallery.length > 1 ? '<div class="gallery-dot">+</div>' : ''}
         ${p.soldOut ? '<div class="sold-badge">SOLD OUT</div>' : ''}
       </div>
@@ -27,6 +56,12 @@ function render(filter) {
         <div class="prod-price">${p.price.toLocaleString('fr-FR')} CFA</div>
       </div>
     </div>`).join('');
+
+  setTimeout(() => {
+    if (scrollObserver) {
+      document.querySelectorAll('.prod-card.reveal-hidden:not(.reveal-active)').forEach(el => scrollObserver.observe(el));
+    }
+  }, 10);
 }
 
 function doFilter(f) { render(f); document.getElementById('shopAnchor').scrollIntoView({behavior:'smooth'}); }
@@ -46,13 +81,13 @@ function openProduct(id) {
 function renderSheet() {
   const p = curProd;
   const gallery = p.gallery || [p.img];
-  document.getElementById('sheetMainImg').src = 'images/' + gallery[curGalleryIdx];
+  document.getElementById('sheetMainImg').src = gallery[curGalleryIdx];
   document.getElementById('sheetName').textContent = p.name;
   document.getElementById('sheetPrice').textContent = p.price.toLocaleString('fr-FR') + ' CFA';
   const thumbs = document.getElementById('sheetThumbs');
   if (gallery.length > 1) {
     thumbs.style.display = 'flex';
-    thumbs.innerHTML = gallery.map((img, i) => `<div class="thumb ${i===curGalleryIdx?'active':''}" onclick="switchImg(${i})"><img src="images/${img}" alt=""></div>`).join('');
+    thumbs.innerHTML = gallery.map((img, i) => `<div class="thumb ${i===curGalleryIdx?'active':''}" onclick="switchImg(${i})"><img src="${img}" alt=""></div>`).join('');
   } else { thumbs.style.display = 'none'; }
   document.getElementById('sizesGrid').innerHTML = p.sizes.map(s => `<button class="size-btn${curSize===s?' active':''}" onclick="selectSize(this,'${s}')">${s}</button>`).join('');
   document.getElementById('qtyVal').textContent = curQty;
@@ -98,6 +133,12 @@ function syncCart() {
   const count = cart.reduce((s,i) => s+i.qty, 0);
   const b = document.getElementById('cartBubble');
   b.textContent = count; b.classList.toggle('show', count > 0);
+  
+  b.classList.remove('pop');
+  void b.offsetWidth;
+  if(count > 0) b.classList.add('pop');
+  setTimeout(() => b.classList.remove('pop'), 300);
+
   const subtotal = cart.reduce((s,i) => s+i.prod.price*i.qty, 0);
   const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount/100)) : subtotal;
   document.getElementById('cartTotal').textContent = total.toLocaleString('fr-FR') + ' CFA';
@@ -115,7 +156,7 @@ function updateCartUI() {
   const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount/100)) : subtotal;
   body.innerHTML = cart.map(i => `
     <div class="cart-item">
-      <div class="cart-item-img"><img src="images/${i.prod.img}" alt=""></div>
+      <div class="cart-item-img"><img src="${i.prod.img}" alt=""></div>
       <div class="cart-item-info">
         <div class="cart-item-name">${i.prod.name}</div>
         <div class="cart-item-size">Taille: ${i.size} · Qté: ${i.qty}</div>
@@ -137,7 +178,7 @@ function openCheckout() {
   const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount/100)) : subtotal;
   document.getElementById('orderItems').innerHTML = cart.map(i => `
     <div class="order-item">
-      <div class="order-item-img"><img src="images/${i.prod.img}" alt=""></div>
+      <div class="order-item-img"><img src="${i.prod.img}" alt=""></div>
       <div class="order-item-info">
         <div class="order-item-name">${i.prod.name}</div>
         <div class="order-item-size">${i.size} · x${i.qty}</div>
