@@ -260,6 +260,21 @@ footer { background:#000; color:#fff; padding:28px 20px 16px; }
 .visa-tag { background:#1a1f71; color:#fff; }
 .ft-copy { font-size:10px; color:rgba(255,255,255,.3); text-align:center; margin-top:20px; padding-top:14px; border-top:1px solid rgba(255,255,255,.07); letter-spacing:1px; }
 
+/* CLICKABLE PHONE NUMBERS */
+.ft-contact-phones { margin-bottom:10px; }
+.ft-phone-label { display:block; font-size:12px; color:rgba(255,255,255,.7); margin-bottom:6px; letter-spacing:0.5px; }
+.ft-phone-actions { display:flex; gap:8px; }
+.ft-call-btn, .ft-wa-btn {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:6px 14px; border-radius:3px;
+  font-family:'Oswald',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+  text-decoration:none; transition:opacity .2s;
+}
+.ft-call-btn { background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.2); }
+.ft-call-btn:hover { background:rgba(255,255,255,.25); }
+.ft-wa-btn { background:#25D366; color:#fff; border:1px solid #25D366; }
+.ft-wa-btn:hover { opacity:.85; }
+
 .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#000; color:#fff; padding:12px 24px; font-size:13px; letter-spacing:1px; border-radius:4px; z-index:999; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
 .toast.show { opacity:1; }
 /* PROMO CODE */
