@@ -412,7 +412,7 @@ footer { background:#000; color:#fff; padding:28px 20px 16px; }
   .prod-info { padding:6px 8px 10px; }
 
   /* Hero */
-  .hero-photo { object-fit:cover; }
+  /* keep object-fit:contain — image garde ses proportions */
 
   /* Product sheet */
   .sheet-gallery { aspect-ratio:1/0.55; }
@@ -437,7 +437,7 @@ footer { background:#000; color:#fff; padding:28px 20px 16px; }
 
   /* Hero occupe bien toute la hauteur */
   .hero { min-height:600px; }
-  .hero-photo { object-fit:cover; }
+  /* keep object-fit:contain — image garde ses proportions */
 
   /* Image ticker images plus grandes */
   .img-ticker-inner img { height:100px; width:100px; margin:0 32px; }
