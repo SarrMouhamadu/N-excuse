@@ -107,7 +107,7 @@ function renderSheet() {
   const thumbs = document.getElementById('sheetThumbs');
   if (gallery.length > 1) {
     thumbs.style.display = 'flex';
-    thumbs.innerHTML = gallery.map((img, i) => `<div class="thumb ${i===curGalleryIdx?'active':''}" onclick="switchImg(${i})"><img src="${img}" alt=""></div>`).join('');
+    thumbs.innerHTML = gallery.map((img, i) => `<div class="thumb-top ${i===curGalleryIdx?'active':''}" onclick="switchImg(${i})"><img src="${img}" alt=""></div>`).join('');
   } else { thumbs.style.display = 'none'; }
   document.getElementById('sizesGrid').innerHTML = p.sizes.map(s => `<button class="size-btn${curSize===s?' active':''}" onclick="selectSize(this,'${s}')">${s}</button>`).join('');
   document.getElementById('qtyVal').textContent = curQty;
@@ -210,7 +210,7 @@ function openCheckout() {
 }
 
 function closeCheckout() { document.getElementById('checkoutPage').classList.remove('open'); }
-function selPay(btn, pay) { curPay = pay; document.querySelectorAll('.pay-opt').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+function selPay(btn, pay) { curPay = pay; document.querySelectorAll('.pay-opt-img').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
 
 function submitOrder() {
   const name = document.getElementById('fName').value.trim();

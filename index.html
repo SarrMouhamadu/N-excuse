@@ -118,11 +118,11 @@
   <div class="ft-section">
     <div class="ft-title">PAIEMENT</div>
    <div class="ft-payments">
-  <span class="pay-logo wave-logo">Wave</span>
-  <span class="pay-logo om-logo">Orange<br>Money</span>
-  <span class="pay-logo visa-logo">VISA</span>
-  <span class="pay-logo cash-logo">Cash</span>
-</div>
+    <img src="wave.png" alt="Wave" class="pay-img">
+    <img src="orange-money.jpg" alt="Orange Money" class="pay-img">
+    <img src="master-card.svg" alt="Visa / MasterCard" class="pay-img">
+    <span class="pay-tag cash-tag">Cash</span>
+   </div>
   </div>
   <div class="ft-contact">
   <div class="ft-contact-btn">
@@ -177,7 +177,7 @@
     <div class="sheet-gallery">
       <img id="sheetMainImg" src="" alt="">
     </div>
-    <div class="sheet-thumbs" id="sheetThumbs"></div>
+    <div class="sheet-thumbs-top" id="sheetThumbs"></div>
   </div>
   <div class="sheet-head">
     <span id="sheetName"></span>
@@ -238,10 +238,10 @@
     <div class="field">
   <label>Mode de paiement</label>
   <div class="payment-opts">
-  <button class="pay-opt wave-opt active" onclick="selPay(this,'Wave')">Wave</button>
-  <button class="pay-opt om-opt" onclick="selPay(this,'Orange Money')">Orange Money</button>
-  <button class="pay-opt visa-opt" onclick="selPay(this,'Visa')">VISA</button>
-  <button class="pay-opt" onclick="selPay(this,'Cash')">Cash</button>
+  <button class="pay-opt-img active" onclick="selPay(this,'Wave')"><img src="wave.png" alt="Wave" class="pay-img"></button>
+  <button class="pay-opt-img" onclick="selPay(this,'Orange Money')"><img src="orange-money.jpg" alt="Orange Money" class="pay-img"></button>
+  <button class="pay-opt-img" onclick="selPay(this,'Visa / MasterCard')"><img src="master-card.svg" alt="Visa / MasterCard" class="pay-img"></button>
+  <button class="pay-opt-img txt-only" onclick="selPay(this,'Cash')">Cash</button>
 <div style="background:#fff3cd; border:1px solid #ffc107; padding:10px 14px; margin-top:14px; font-size:11px; color:#856404; letter-spacing:1px; line-height:1.6;">
   ⚠️ Les frais de livraison sont à la charge du client. NO EXCUSE n'est pas responsable des délais de livraison.
 </div>

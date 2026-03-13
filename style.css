@@ -275,8 +275,11 @@ header {
 .field input { width:100%; border:1px solid var(--border); padding:11px 12px; font-size:13px; outline:none; transition:border-color .2s; background:var(--bg); color:var(--text); }
 .field input:focus { border-color:var(--text); }
 .payment-opts { display:flex; flex-wrap:wrap; gap:8px; }
-.pay-opt { border:1px solid var(--border); background:var(--bg); color:var(--text); padding:8px 16px; font-family:'Oswald',sans-serif; font-size:11px; font-weight:600; transition:all .2s; }
-.pay-opt.active { background:var(--text); color:var(--bg); border-color:var(--text); }
+.pay-opt-img { border:1px solid var(--border); background:var(--bg); border-radius:4px; padding:4px 8px; transition:all .2s; display:inline-flex; align-items:center; justify-content:center; height:42px; width:auto; min-width:60px; }
+.pay-opt-img:hover { border-color:var(--text-muted); }
+.pay-opt-img.active { border-color:var(--red); border-width:2px; padding:3px 7px; background:rgba(224,26,26,0.05); }
+.pay-opt-img .pay-img { height:30px; object-fit:contain; border-radius:2px; }
+.pay-opt-img.txt-only { padding:0 14px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700; color:var(--text); letter-spacing:1px; }
 .btn-submit { width:100%; background:var(--text); color:var(--bg); border:none; padding:14px; margin-top:20px; font-family:'Oswald',sans-serif; font-size:12px; font-weight:700; letter-spacing:4px; text-transform:uppercase; transition:background .2s; }
 .btn-submit:hover { background:var(--red); color:#fff; }
 
@@ -300,11 +303,10 @@ footer { background:#000; color:#fff; padding:28px 20px 16px; }
 .ft-section ul { list-style:none; }
 .ft-section ul li a { display:block; padding:5px 0; font-size:12px; color:rgba(255,255,255,.6); letter-spacing:1px; transition:color .2s; }
 .ft-section ul li a:hover { color:#fff; }
-.ft-payments { display:flex; flex-wrap:wrap; gap:8px; }
-.pay-tag { padding:4px 10px; border-radius:4px; font-size:10px; font-weight:700; }
-.wave-tag { background:#00b4d8; color:#fff; }
-.om-tag { background:#ff6600; color:#fff; }
-.visa-tag { background:#1a1f71; color:#fff; }
+.ft-payments { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.pay-img { height:32px; width:auto; border-radius:4px; object-fit:contain; background:#fff; padding:2px; }
+.pay-tag { padding:0 10px; border-radius:4px; font-size:11px; font-weight:700; height:32px; display:inline-flex; align-items:center; justify-content:center; }
+.cash-tag { background:#333; color:#fff; }
 .ft-copy { font-size:10px; color:rgba(255,255,255,.3); text-align:center; margin-top:20px; padding-top:14px; border-top:1px solid rgba(255,255,255,.07); letter-spacing:1px; }
 
 /* CLICKABLE PHONE NUMBERS */
