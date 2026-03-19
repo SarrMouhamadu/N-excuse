@@ -1,4 +1,5 @@
-let cart = [], curProd = null, curSize = null, curPay = 'Wave', curGalleryIdx = 0, curQty = 1;
+let cart = JSON.parse(localStorage.getItem('ne-cart') || '[]');
+let curProd = null, curSize = null, curPay = 'Wave', curGalleryIdx = 0, curQty = 1;
 let promoCode = null, promoDiscount = 0;
 const WA = '221773985255';
 
@@ -67,7 +68,7 @@ function render(filter) {
   document.getElementById('prodGrid').innerHTML = list.map((p, idx) => `
     <div class="prod-card reveal-hidden${p.soldOut ? ' soldout' : ''}" style="transition-delay: ${idx * 40}ms" ${!p.soldOut ? `onclick="openProduct(${p.id})"` : ''}>
       <div class="prod-img">
-        <img src="${p.img}" alt="${p.name}">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
         ${p.gallery && p.gallery.length > 1 ? '<div class="gallery-dot">+</div>' : ''}
         ${p.soldOut ? '<div class="sold-badge">SOLD OUT</div>' : ''}
       </div>
@@ -136,6 +137,8 @@ function closeCart() { document.getElementById('cartPanel').classList.remove('op
 function clearCart() { cart = []; promoCode = null; promoDiscount = 0; syncCart(); updateCartUI(); }
 function removeItem(key) { cart = cart.filter(i => i.key !== key); syncCart(); updateCartUI(); }
 
+function saveCart() { localStorage.setItem('ne-cart', JSON.stringify(cart)); }
+
 function applyPromo() {
   const input = document.getElementById('promoInput').value.trim().toUpperCase();
   const discount = PROMO_CODES[input];
@@ -150,6 +153,7 @@ function applyPromo() {
 }
 
 function syncCart() {
+  saveCart();
   const count = cart.reduce((s,i) => s+i.qty, 0);
   const b = document.getElementById('cartBubble');
   b.textContent = count; b.classList.toggle('show', count > 0);
