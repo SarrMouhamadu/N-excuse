@@ -31,6 +31,8 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - proxy-tier
+    labels:
+      com.github.nginx-proxy.nginx: "true"
     restart: always
 
   acme-companion:
@@ -38,6 +40,7 @@ services:
     container_name: nginx-proxy-acme
     environment:
       - DEFAULT_EMAIL=sarrmahmoud232@gmail.com
+      - NGINX_PROXY_CONTAINER=nginx-proxy
     volumes:
       - conf:/etc/nginx/conf.d
       - vhost:/etc/nginx/vhost.d
