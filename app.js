@@ -2,6 +2,8 @@ let cart = JSON.parse(localStorage.getItem('ne-cart') || '[]');
 let curProd = null, curSize = null, curPay = 'Wave', curGalleryIdx = 0, curQty = 1;
 let promoCode = null, promoDiscount = 0;
 const WA = '221773985255';
+const API_URL = window.location.origin === 'http://localhost:5000' || window.location.origin.includes('127.0.0.1') ? 'http://localhost:3000' : ''; 
+// L'API sera sur le même domaine en production via le Proxy Nginx
 
 const PROMO_CODES = {
   'NOEXCUSE10': 10,
@@ -58,6 +60,14 @@ function initImgTicker() {
 initScrollObserver();
 initImgTicker();
 render(null);
+
+// Log de la visite au chargement
+async function logVisit() {
+  try {
+    await fetch(`${API_URL}/api/visit`, { method: 'POST' });
+  } catch (e) { console.warn('Erreur log visite:', e); }
+}
+logVisit();
 
 function render(filter) {
   document.querySelectorAll('.filter-btn').forEach((b, i) => {
@@ -216,7 +226,7 @@ function openCheckout() {
 function closeCheckout() { document.getElementById('checkoutPage').classList.remove('open'); }
 function selPay(btn, pay) { curPay = pay; document.querySelectorAll('.pay-opt-img').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
 
-function submitOrder() {
+async function submitOrder() {
   const name = document.getElementById('fName').value.trim();
   const phone = document.getElementById('fPhone').value.trim();
   const region = document.getElementById('fRegion').value.trim();
@@ -231,6 +241,16 @@ function submitOrder() {
     'PRODUITS:\n' + cart.map(i=>`- ${i.prod.name} (${i.size}) x${i.qty} = ${(i.prod.price*i.qty).toLocaleString('fr-FR')} CFA`).join('\n') +
     '\n\nTOTAL: ' + total.toLocaleString('fr-FR') + ' CFA'
   );
+
+  // Sauvegarde dans la base de données avant redirection WhatsApp
+  try {
+    await fetch(`${API_URL}/api/order`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, region, address, payment: curPay, items: cart, total, promoCode, promoDiscount })
+    });
+  } catch (e) { console.warn('Erreur sauvegarde commande:', e); }
+
   window.open('https://wa.me/'+WA+'?text='+msg,'_blank');
   cart=[]; promoCode=null; promoDiscount=0; syncCart(); closeCheckout(); showToast('Commande envoyée ! ✓');
 }
