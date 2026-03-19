@@ -6,7 +6,7 @@ services:
     container_name: no-excuse
     restart: always
     ports:
-      - "8081:80"
+      - "80:80"
     networks:
       - web-network
 
