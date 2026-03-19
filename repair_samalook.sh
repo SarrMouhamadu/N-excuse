@@ -25,7 +25,7 @@ services:
     restart: always
 
   frontend:
-    build: ./client
+    build: .
     container_name: samalook-app
     environment:
       - VIRTUAL_HOST=samalook.com,www.samalook.com
