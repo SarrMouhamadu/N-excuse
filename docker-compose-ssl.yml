@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    container_name: no-excuse
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro # Permet au conteneur de lire les certificats SSL générés par Certbot
+    restart: unless-stopped
