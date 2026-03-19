@@ -40,15 +40,39 @@ cd N-excuse
 open index.html
 ```
 
-### Option 2 — Docker (recommandé)
+### Option 2 — Docker Compose (recommandé pour VPS)
 ```bash
-# Construire l'image
-docker build -t no-excuse:latest .
-
-# Lancer le conteneur
-docker run -d -p 8081:80 --name no-excuse no-excuse:latest
+# Construire et lancer
+docker-compose up -d --build
 ```
-Puis ouvrez **http://localhost:8081** dans votre navigateur.
+Puis ouvrez **http://localhost:8081**.
+
+---
+
+## ☁️ Déploiement sur VPS
+
+Pour déployer le projet sur un serveur (ex: DigitalOcean, AWS, OVH) :
+
+1. **Pré-requis** : Installez `git`, `docker` et `docker-compose` sur votre serveur.
+2. **Cloner le projet** :
+   ```bash
+   git clone https://github.com/SarrMouhamadu/N-excuse.git
+   cd N-excuse
+   ```
+3. **Lancer le site** :
+   ```bash
+   docker-compose up -d --build
+   ```
+4. **Mise à jour automatique** :
+   Utilisez le script `deploy.sh` fourni pour mettre à jour le site en une seule commande :
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+> [!TIP]
+> Pour ajouter un certificat SSL (HTTPS), nous vous recommandons d'utiliser **Nginx Proxy Manager** ou **Traefik** en amont de ce conteneur.
+
 
 ---
 

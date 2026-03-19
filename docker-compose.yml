@@ -1,9 +1,15 @@
 version: '3.8'
 
 services:
-  web:
+  no-excuse:
     build: .
+    container_name: no-excuse
+    restart: always
     ports:
-      - "8080:80"
-    restart: unless-stopped
-    container_name: no-excuse-web
+      - "8081:80"
+    networks:
+      - web-network
+
+networks:
+  web-network:
+    driver: bridge

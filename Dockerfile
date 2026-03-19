@@ -11,6 +11,9 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copier tous les fichiers du projet dans le dossier servi par nginx
 COPY . /usr/share/nginx/html
 
+# Copier la configuration nginx personnalisée
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Exposer le port 80
 EXPOSE 80
 
