@@ -14,7 +14,7 @@ git pull origin main
 
 # Reconstruire et redémarrer les conteneurs
 echo "🛠️ Reconstruction de l'image Docker..."
-docker-compose up -d --build
+docker compose up -d --build
 
 # Nettoyage des anciennes images
 echo "🧹 Nettoyage des images inutilisées..."
