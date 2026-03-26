@@ -6,8 +6,7 @@ const API_URL = window.location.origin === 'http://localhost:5000' || window.loc
 // L'API sera sur le même domaine en production via le Proxy Nginx
 
 const PROMO_CODES = {
-  'NOEXCUSE10': 10,
-  'WELCOME15': 15,
+  'OULEYE10': 10,
 };
 
 /* ── DARK / LIGHT MODE ── */
@@ -41,7 +40,7 @@ function initScrollObserver() {
       }
     });
   }, { threshold: 0.1 });
-  
+
   document.querySelectorAll('.shop-title, .filters, .newsletter, .ft-section').forEach(el => {
     el.classList.add('reveal-hidden');
     scrollObserver.observe(el);
@@ -71,7 +70,7 @@ logVisit();
 
 function render(filter) {
   document.querySelectorAll('.filter-btn').forEach((b, i) => {
-    const cats = [null, 'tshirt', 'bonnet','hoodie', 'accessoire'];
+    const cats = [null, 'tshirt', 'bonnet', 'hoodie', 'accessoire'];
     b.classList.toggle('active', cats[i] === filter);
   });
   const list = filter ? PRODUCTS.filter(p => p.cat === filter) : PRODUCTS;
@@ -95,8 +94,8 @@ function render(filter) {
   }, 10);
 }
 
-function doFilter(f) { render(f); document.getElementById('shopAnchor').scrollIntoView({behavior:'smooth'}); }
-function scrollShop() { document.getElementById('shopAnchor').scrollIntoView({behavior:'smooth'}); }
+function doFilter(f) { render(f); document.getElementById('shopAnchor').scrollIntoView({ behavior: 'smooth' }); }
+function scrollShop() { document.getElementById('shopAnchor').scrollIntoView({ behavior: 'smooth' }); }
 function toggleMenu() { document.getElementById('sideNav').classList.toggle('open'); document.getElementById('navOverlay').classList.toggle('open'); }
 function closeMenu() { document.getElementById('sideNav').classList.remove('open'); document.getElementById('navOverlay').classList.remove('open'); }
 
@@ -118,9 +117,9 @@ function renderSheet() {
   const thumbs = document.getElementById('sheetThumbs');
   if (gallery.length > 1) {
     thumbs.style.display = 'flex';
-    thumbs.innerHTML = gallery.map((img, i) => `<div class="thumb-top ${i===curGalleryIdx?'active':''}" onclick="switchImg(${i})"><img src="${img}" alt=""></div>`).join('');
+    thumbs.innerHTML = gallery.map((img, i) => `<div class="thumb-top ${i === curGalleryIdx ? 'active' : ''}" onclick="switchImg(${i})"><img src="${img}" alt=""></div>`).join('');
   } else { thumbs.style.display = 'none'; }
-  document.getElementById('sizesGrid').innerHTML = p.sizes.map(s => `<button class="size-btn${curSize===s?' active':''}" onclick="selectSize(this,'${s}')">${s}</button>`).join('');
+  document.getElementById('sizesGrid').innerHTML = p.sizes.map(s => `<button class="size-btn${curSize === s ? ' active' : ''}" onclick="selectSize(this,'${s}')">${s}</button>`).join('');
   document.getElementById('qtyVal').textContent = curQty;
   document.getElementById('btnAdd').disabled = !curSize;
 }
@@ -138,7 +137,7 @@ function addToCart() {
   if (!curProd || !curSize) return;
   const key = curProd.id + '-' + curSize;
   const ex = cart.find(i => i.key === key);
-  if (ex) ex.qty += curQty; else cart.push({key, prod:curProd, size:curSize, qty:curQty});
+  if (ex) ex.qty += curQty; else cart.push({ key, prod: curProd, size: curSize, qty: curQty });
   closeSheet(); syncCart(); showToast(curProd.name + ' ajouté ✓');
 }
 
@@ -164,17 +163,17 @@ function applyPromo() {
 
 function syncCart() {
   saveCart();
-  const count = cart.reduce((s,i) => s+i.qty, 0);
+  const count = cart.reduce((s, i) => s + i.qty, 0);
   const b = document.getElementById('cartBubble');
   b.textContent = count; b.classList.toggle('show', count > 0);
-  
+
   b.classList.remove('pop');
   void b.offsetWidth;
-  if(count > 0) b.classList.add('pop');
+  if (count > 0) b.classList.add('pop');
   setTimeout(() => b.classList.remove('pop'), 300);
 
-  const subtotal = cart.reduce((s,i) => s+i.prod.price*i.qty, 0);
-  const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount/100)) : subtotal;
+  const subtotal = cart.reduce((s, i) => s + i.prod.price * i.qty, 0);
+  const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount / 100)) : subtotal;
   document.getElementById('cartTotal').textContent = total.toLocaleString('fr-FR') + ' CFA';
 }
 
@@ -186,15 +185,15 @@ function updateCartUI() {
     footer.style.display = 'none'; return;
   }
   footer.style.display = 'block';
-  const subtotal = cart.reduce((s,i) => s+i.prod.price*i.qty, 0);
-  const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount/100)) : subtotal;
+  const subtotal = cart.reduce((s, i) => s + i.prod.price * i.qty, 0);
+  const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount / 100)) : subtotal;
   body.innerHTML = cart.map(i => `
     <div class="cart-item">
       <div class="cart-item-img"><img src="${i.prod.img}" alt=""></div>
       <div class="cart-item-info">
         <div class="cart-item-name">${i.prod.name}</div>
         <div class="cart-item-size">Taille: ${i.size} · Qté: ${i.qty}</div>
-        <div class="cart-item-price">${(i.prod.price*i.qty).toLocaleString('fr-FR')} CFA</div>
+        <div class="cart-item-price">${(i.prod.price * i.qty).toLocaleString('fr-FR')} CFA</div>
       </div>
       <button class="cart-item-del" onclick="removeItem('${i.key}')">✕</button>
     </div>`).join('') + `
@@ -208,8 +207,8 @@ function updateCartUI() {
 }
 
 function openCheckout() {
-  const subtotal = cart.reduce((s,i) => s+i.prod.price*i.qty, 0);
-  const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount/100)) : subtotal;
+  const subtotal = cart.reduce((s, i) => s + i.prod.price * i.qty, 0);
+  const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount / 100)) : subtotal;
   document.getElementById('orderItems').innerHTML = cart.map(i => `
     <div class="order-item">
       <div class="order-item-img"><img src="${i.prod.img}" alt=""></div>
@@ -217,7 +216,7 @@ function openCheckout() {
         <div class="order-item-name">${i.prod.name}</div>
         <div class="order-item-size">${i.size} · x${i.qty}</div>
       </div>
-      <div class="order-item-price">${(i.prod.price*i.qty).toLocaleString('fr-FR')} CFA</div>
+      <div class="order-item-price">${(i.prod.price * i.qty).toLocaleString('fr-FR')} CFA</div>
     </div>`).join('');
   document.getElementById('orderTotal').textContent = total.toLocaleString('fr-FR') + ' CFA';
   document.getElementById('checkoutPage').classList.add('open');
@@ -231,14 +230,14 @@ async function submitOrder() {
   const phone = document.getElementById('fPhone').value.trim();
   const region = document.getElementById('fRegion').value.trim();
   const address = document.getElementById('fAddress').value.trim();
-  if (!name||!phone||!region||!address) { showToast('Remplissez tous les champs'); return; }
-  const subtotal = cart.reduce((s,i) => s+i.prod.price*i.qty, 0);
-  const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount/100)) : subtotal;
+  if (!name || !phone || !region || !address) { showToast('Remplissez tous les champs'); return; }
+  const subtotal = cart.reduce((s, i) => s + i.prod.price * i.qty, 0);
+  const total = promoDiscount > 0 ? Math.round(subtotal * (1 - promoDiscount / 100)) : subtotal;
   const promoLine = promoCode ? `\nCode promo: ${promoCode} (-${promoDiscount}%)` : '';
   const msg = encodeURIComponent(
     'NOUVELLE COMMANDE - NO EXCUSE\n\n' +
     'Nom: ' + name + '\nTel: ' + phone + '\nAdresse: ' + address + '\nPaiement: ' + curPay + promoLine + '\n\n' +
-    'PRODUITS:\n' + cart.map(i=>`- ${i.prod.name} (${i.size}) x${i.qty} = ${(i.prod.price*i.qty).toLocaleString('fr-FR')} CFA`).join('\n') +
+    'PRODUITS:\n' + cart.map(i => `- ${i.prod.name} (${i.size}) x${i.qty} = ${(i.prod.price * i.qty).toLocaleString('fr-FR')} CFA`).join('\n') +
     '\n\nTOTAL: ' + total.toLocaleString('fr-FR') + ' CFA'
   );
 
@@ -251,8 +250,8 @@ async function submitOrder() {
     });
   } catch (e) { console.warn('Erreur sauvegarde commande:', e); }
 
-  window.open('https://wa.me/'+WA+'?text='+msg,'_blank');
-  cart=[]; promoCode=null; promoDiscount=0; syncCart(); closeCheckout(); showToast('Commande envoyée ! ✓');
+  window.open('https://wa.me/' + WA + '?text=' + msg, '_blank');
+  cart = []; promoCode = null; promoDiscount = 0; syncCart(); closeCheckout(); showToast('Commande envoyée ! ✓');
 }
 
-function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }

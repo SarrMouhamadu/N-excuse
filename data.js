@@ -1,42 +1,42 @@
 const PRODUCTS = [
   {
-    id: 1, name: 'T-shirt Noir', cat: 'tshirt', price: 8000, soldOut: false,
+    id: 1, name: 'T-shirt Noir', cat: 'tshirt', price: 10000, soldOut: false,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     img: 'tshirt-noir.png',
     gallery: ['tshirt-noir.png', 'tshirt-noir-dos.jpeg']
   },
   {
-    id: 2, name: 'T-shirt Blanc', cat: 'tshirt', price: 8000, soldOut: false,
+    id: 2, name: 'T-shirt Blanc', cat: 'tshirt', price: 10000, soldOut: false,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     img: 'tshirt-blanc.png',
     gallery: ['tshirt-blanc.png', 'tshirt-blanc-dos.jpeg']
   },
   {
-    id: 3, name: 'T-shirt Rose', cat: 'tshirt', price: 8000, soldOut: false,
+    id: 3, name: 'T-shirt Rose', cat: 'tshirt', price: 10000, soldOut: false,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     img: 'tshirt-rose.png',
     gallery: ['tshirt-rose.png', 'tshirt-rose-dos.jpeg']
   },
   {
-    id: 4, name: 'Crop-top Blanc', cat: 'tshirt', price: 6000, soldOut: false,
+    id: 4, name: 'Top-basic Blanc', cat: 'tshirt', price: 6000, soldOut: false,
     sizes: ['S', 'M', 'L'],
     img: 'crop-blanc.png',
     gallery: ['crop-blanc.png']
   },
   {
-    id: 5, name: 'Crop-top Noir', cat: 'tshirt', price: 6000, soldOut: false,
+    id: 5, name: 'Top-basic Noir', cat: 'tshirt', price: 6000, soldOut: false,
     sizes: ['S', 'M', 'L'],
     img: 'crop-noir.png',
     gallery: ['crop-noir.png']
   },
   {
-    id: 6, name: 'Top Basic Noir', cat: 'tshirt', price: 6000, soldOut: false,
+    id: 6, name: 'Crop-top  Noir', cat: 'tshirt', price: 6000, soldOut: false,
     sizes: ['S', 'M', 'L'],
     img: 'top-basic-noir.png',
     gallery: ['top-basic-noir.png']
   },
   {
-    id: 7, name: 'Top Basic Blanc', cat: 'tshirt', price: 6000, soldOut: false,
+    id: 7, name: 'Crop-top Blanc', cat: 'tshirt', price: 6000, soldOut: false,
     sizes: ['S', 'M', 'L'],
     img: 'top-basic-blanc.png',
     gallery: ['top-basic-blanc.png']
